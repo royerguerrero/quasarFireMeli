@@ -14,9 +14,11 @@ func helloWorld(w http.ResponseWriter, r *http.Request) {
 	message := make(map[string]string)
 	message["Hello"] = "world"
 
-	satellites := satellites.Satellites{}
-	fmt.Println(satellites)
-	fmt.Println(satellites.GetMessage())
+	fmt.Println(satellites.GetMessage(
+		[]string{"este", "", "", "mensaje", ""},
+		[]string{"", "es", "", "", "secreto"},
+		[]string{"este", "", "un", "", ""},
+	))
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(message)

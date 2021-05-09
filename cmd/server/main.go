@@ -20,6 +20,8 @@ func helloWorld(w http.ResponseWriter, r *http.Request) {
 		[]string{"este", "", "un", "", ""},
 	))
 
+	fmt.Println(satellites.GetLocation(100.0, 115.5, 142.7))
+
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(message)
 }

@@ -1,4 +1,4 @@
-package data
+package internal
 
 type TopSecretResponse struct {
 	Position map[string]float64 `json:"position"`
@@ -6,5 +6,5 @@ type TopSecretResponse struct {
 }
 
 type ErrorResponse struct {
-	Detail string `json:"detail"`
+	Detail interface{} `json:"detail"`
 }

@@ -1,9 +1,11 @@
-package data
+package internal
 
 import (
 	"math"
 	"sort"
 	"strings"
+
+	validation "github.com/go-ozzo/ozzo-validation"
 )
 
 type Satellite struct {
@@ -12,17 +14,42 @@ type Satellite struct {
 	Message  []string `json:"message"`
 }
 
+func (s Satellite) Validate() error {
+	return validation.ValidateStruct(&s,
+		validation.Field(&s.Name, validation.Required),
+		validation.Field(&s.Distance, validation.Required),
+		validation.Field(&s.Message, validation.Required, validation.Length(0, 100)),
+	)
+}
+
 type SatellitesRepo struct {
 	Satellites [3]Satellite `json:"satellites"`
 }
 
-func (s SatellitesRepo) FindByName(name string) Satellite {
+func (s SatellitesRepo) Validate() error {
+	err := validation.ValidateStruct(&s, validation.Field(&s.Satellites, validation.Required, validation.Length(3, 3)))
+
+	if err != nil {
+		return err
+	}
+
 	for _, satellite := range s.Satellites {
-		if strings.EqualFold(name, satellite.Name) {
-			return satellite
+		err = satellite.Validate()
+		if err != nil {
+			return err
 		}
 	}
-	return Satellite{}
+
+	return nil
+}
+
+func (s SatellitesRepo) FindByName(name string) (Satellite, int) {
+	for i, satellite := range s.Satellites {
+		if strings.EqualFold(name, satellite.Name) {
+			return satellite, i
+		}
+	}
+	return Satellite{}, 0
 }
 
 func (s SatellitesRepo) getSatellitesOnline() map[string][2]float64 {

@@ -11,7 +11,7 @@ import (
 )
 
 // Top Secret Split Service: Stores the satellite data in
-// the hash table [SATELLITES_MEMO] using the client's IP address.
+// the Satellites struct.
 func SplitTopSecret(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	satelliteName := vars["name"]

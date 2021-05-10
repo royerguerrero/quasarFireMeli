@@ -9,7 +9,7 @@ import (
 
 // Top Secret Split Read service: Returns the same as the
 // /topscret/ service but the satellite data is extracted from the
-// table up to [SATELLITES_MEMO].
+// Satellites struct.
 func SplitTopSecretRead(w http.ResponseWriter, r *http.Request) {
 	satellites := internal.Satellites
 	w.Header().Set("Content-Type", "application/json")

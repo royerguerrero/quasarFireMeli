@@ -125,4 +125,7 @@ modules.xml
 .history
 .ionide
 
+### Hot Reload Server
+daemon
+
 # End of https://www.toptal.com/developers/gitignore/api/go,visualstudiocode,intellij+all
